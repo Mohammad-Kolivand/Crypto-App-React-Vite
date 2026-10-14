@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Activity, ArrowDownRight, ArrowUpRight, Coins, RefreshCw, Wallet } from "lucide-react";
 import { getCoinList } from "../../services/cryptoApi";
 import TableCoin from "../modules/TableCoin";
 import Pagination from "../modules/Pagination";
 import Search from "../modules/Search";
-import Chart from "../modules/Chart";
+const Chart = lazy(() => import("../modules/Chart"));
 import styles from "./HomePage.module.css";
 
 function HomePage() {
@@ -41,7 +41,11 @@ function HomePage() {
 
   return (
     <div className={styles.dashboard}>
-      {!!chart && <Chart setChart={setChart} chart={chart} />}
+      {!!chart && (
+        <Suspense fallback={<div className={styles.chartLoading} role="status">Loading chart…</div>}>
+          <Chart setChart={setChart} chart={chart} />
+        </Suspense>
+      )}
       <section className={styles.intro}>
         <div>
           <p className={styles.eyebrow}><Activity size={14} /> MARKET TERMINAL / OVERVIEW</p>

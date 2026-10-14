@@ -26,3 +26,5 @@
 @media(max-width:950px) { .statsGrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:640px) { .intro { align-items:flex-start; flex-direction:column; } .liveBadge { margin-top:0; } .statsGrid { gap:10px; } .statCard { padding:15px; } .statCard strong { font-size:1.7rem; } .marketSection { padding:15px 11px; } .sectionHeading { align-items:flex-start; } }
 @media(max-width:380px) { .statsGrid { grid-template-columns:1fr; } }
+
+.chartLoading { position:fixed; z-index:20; inset:0; display:grid; place-items:center; padding:24px; background:rgba(4,8,20,.76); color:#e8eef8; font-size:.95rem; font-weight:700; backdrop-filter:blur(9px); }

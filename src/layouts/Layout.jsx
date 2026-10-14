@@ -7,15 +7,12 @@ function Layout({ children }) {
     try { return localStorage.getItem("crypto-app-theme") || "dark"; }
     catch { return "dark"; }
   });
-
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem("crypto-app-theme", theme); }
     catch { /* Theme switching remains available if storage is disabled. */ }
   }, [theme]);
-
   const toggleTheme = () => setTheme((current) => current === "dark" ? "light" : "dark");
-
   return (
     <div className={styles.shell}>
       <header className={styles.header}>

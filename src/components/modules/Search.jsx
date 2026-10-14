@@ -34,11 +34,11 @@ function Search({ currency, setCurrency }) {
 
   return (
     <div className={styles.searchBox}>
-      <label className={styles.searchInputWrap}>
+      <div className={styles.searchInputWrap}>
         <SearchIcon size={17} />
         <input type="text" placeholder="Search assets by name or symbol…" value={text} onChange={(e) => setText(e.target.value)} aria-label="Search crypto assets" />
         {text && <button type="button" className={styles.clearSearch} onClick={() => setText("")} aria-label="Clear search"><X size={15} /></button>}
-      </label>
+      </div>
       <label className={styles.currencySelect}>
         <span>QUOTE</span>
         <select value={currency} onChange={(e) => setCurrency(e.target.value)} aria-label="Quote currency">

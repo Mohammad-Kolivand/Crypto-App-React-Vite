@@ -1,11 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Activity, ArrowDownRight, ArrowUpRight, Coins, RefreshCw, Wallet } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Coins, RefreshCw } from "lucide-react";
 import { getCoinList } from "../../services/cryptoApi";
 import TableCoin from "../modules/TableCoin";
 import Pagination from "../modules/Pagination";
 import Search from "../modules/Search";
-const Chart = lazy(() => import("../modules/Chart"));
 import styles from "./HomePage.module.css";
+
+const Chart = lazy(() => import("../modules/Chart"));
 
 function HomePage() {
   const [coins, setCoins] = useState([]);
@@ -46,38 +47,49 @@ function HomePage() {
           <Chart setChart={setChart} chart={chart} />
         </Suspense>
       )}
+
       <section className={styles.intro}>
         <div>
-          <p className={styles.eyebrow}><Activity size={14} /> MARKET TERMINAL / OVERVIEW</p>
-          <h1>Market moves.<br /><span>Made readable.</span></h1>
-          <p className={styles.introText}>A focused view of crypto prices, daily momentum, and market activity.</p>
+          <p className={styles.eyebrow}>MARKET OVERVIEW <span>/</span> {currency.toUpperCase()}</p>
+          <h1>Crypto market</h1>
         </div>
-        <div className={styles.liveBadge}><span /> Live market watch</div>
+        <div className={styles.marketMeta}>
+          <span className={styles.statusDot} />
+          <span>{isLoading ? "Updating" : "Market snapshot"}</span>
+        </div>
       </section>
 
-      <section className={styles.statsGrid} aria-label="Current page statistics">
+      <section className={styles.statsGrid} aria-label="Current market summary">
         <article className={styles.statCard}>
-          <div className={styles.statTop}><span className={styles.statIcon}><Coins size={17} /></span><span className={styles.statLabel}>Assets loaded</span></div>
-          <strong>{isLoading ? "—" : coins.length}</strong><span className={styles.statHint}>Assets on current page</span>
+          <div className={styles.statTop}>
+            <span className={styles.statIcon}><Coins size={17} /></span>
+            <span className={styles.statLabel}>Assets</span>
+          </div>
+          <strong>{isLoading ? "—" : coins.length}</strong>
         </article>
         <article className={styles.statCard}>
-          <div className={styles.statTop}><span className={styles.statIcon + " " + styles.positiveIcon}><ArrowUpRight size={18} /></span><span className={styles.statLabel}>Daily gainers</span></div>
-          <strong>{isLoading ? "—" : gainers}</strong><span className={styles.statHint}>Positive 24h movement</span>
+          <div className={styles.statTop}>
+            <span className={styles.statIcon + " " + styles.positiveIcon}><ArrowUpRight size={18} /></span>
+            <span className={styles.statLabel}>Up 24h</span>
+          </div>
+          <strong>{isLoading ? "—" : gainers}</strong>
         </article>
         <article className={styles.statCard}>
-          <div className={styles.statTop}><span className={styles.statIcon + " " + styles.negativeIcon}><ArrowDownRight size={18} /></span><span className={styles.statLabel}>Daily decliners</span></div>
-          <strong>{isLoading ? "—" : losers}</strong><span className={styles.statHint}>Negative 24h movement</span>
-        </article>
-        <article className={styles.statCard}>
-          <div className={styles.statTop}><span className={styles.statIcon}><Wallet size={17} /></span><span className={styles.statLabel}>Quote currency</span></div>
-          <strong className={styles.currencyValue}>{currency.toUpperCase()}</strong><span className={styles.statHint}>Selected market currency</span>
+          <div className={styles.statTop}>
+            <span className={styles.statIcon + " " + styles.negativeIcon}><ArrowDownRight size={18} /></span>
+            <span className={styles.statLabel}>Down 24h</span>
+          </div>
+          <strong>{isLoading ? "—" : losers}</strong>
         </article>
       </section>
 
       <section className={styles.marketSection}>
         <div className={styles.sectionHeading}>
-          <div><p className={styles.eyebrow}>MARKET SCREENER</p><h2>Top cryptocurrencies</h2></div>
-          <span className={styles.pageIndicator}><span>PAGE</span> {page} <span>/ 10</span></span>
+          <div>
+            <h2>Market</h2>
+            <span className={styles.sectionSubheading}>Price and 24h change</span>
+          </div>
+          <span className={styles.pageIndicator}>{page}<span>/ 10</span></span>
         </div>
         <Search currency={currency} setCurrency={setCurrency} />
         {loadError && <div className={styles.errorNotice} role="alert"><RefreshCw size={16} /> {loadError}</div>}
@@ -87,4 +99,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;

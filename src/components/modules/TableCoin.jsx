@@ -1,86 +1,50 @@
-import ChartUp from "../../assets/chart-up.svg";
-import ChartDown from "../../assets/chart-down.svg";
-
+import { ArrowDownRight, ArrowUpRight, BarChart3 } from "lucide-react";
 import styles from "./TableCoin.module.css";
-
 import { marketChart } from "../../services/cryptoApi";
 
 function TableCoin({ coins = [], isLoading, setChart }) {
   return (
     <div className={styles.container}>
       {isLoading ? (
-        <p>Loading...</p>
+        <div className={styles.loading}><span className={styles.loader} /> Loading market data…</div>
       ) : (
         <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Coin</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>24h</th>
-              <th>Total Volume</th>
-              <th></th>
-            </tr>
-          </thead>
+          <thead><tr><th>Asset</th><th>Name</th><th>Last price</th><th>24h change</th><th>24h volume</th><th>Trend</th></tr></thead>
           <tbody>
-            {Array.isArray(coins)
-              ? coins.map((coin) => (
-                  <TableRow coin={coin} key={coin?.id} setChart={setChart} />
-                ))
-              : null}
+            {Array.isArray(coins) && coins.map((coin) => <TableRow coin={coin} key={coin?.id} setChart={setChart} />)}
+            {!coins.length && <tr><td colSpan="6" className={styles.empty}>No market assets to display.</td></tr>}
           </tbody>
         </table>
       )}
     </div>
   );
 }
-
 export default TableCoin;
 
 const TableRow = ({ coin, setChart }) => {
-  const {
-    id,
-    name,
-    image,
-    symbol,
-    total_volume,
-    current_price,
-    price_change_percentage_24h: price_change,
-  } = coin;
+  const { id, name, image, symbol, total_volume, current_price, price_change_percentage_24h: price_change } = coin;
   const showHandler = async () => {
     try {
       const res = await fetch(marketChart(id));
+      if (!res.ok) throw new Error("Chart request failed");
       const json = await res.json();
       setChart({ ...json, coin });
-    } catch (error) {
+    } catch {
       setChart(null);
     }
   };
-
   return (
     <tr>
-      <td>
-        <div className={styles.symbol} onClick={showHandler}>
-          <img src={image ?? "default-image.png"} alt={name ?? "Unknown"} />
-          <span>{symbol?.toUpperCase() ?? "N/A"}</span>
-        </div>
+      <td><button type="button" className={styles.assetButton} onClick={showHandler} aria-label={`Open price chart for ${name}`}>
+        <img src={image ?? "default-image.png"} alt="" /><span className={styles.assetSymbol}>{symbol?.toUpperCase() ?? "N/A"}</span><BarChart3 size={14} className={styles.assetChartIcon} />
+      </button></td>
+      <td className={styles.assetName}>{name ?? "N/A"}</td>
+      <td className={styles.numeric}>{"$"}{current_price?.toLocaleString() ?? "N/A"}</td>
+      <td className={price_change > 0 ? styles.success : price_change < 0 ? styles.error : styles.neutral}>
+        <span className={styles.changeValue}>{price_change > 0 ? <ArrowUpRight size={14} /> : price_change < 0 ? <ArrowDownRight size={14} /> : null}{price_change == null ? "N/A" : `${price_change > 0 ? "+" : ""}${price_change.toFixed(2)}%`}</span>
       </td>
-      <td>{name ?? "N/A"}</td>
-      <td>${current_price?.toLocaleString() ?? "N/A"}</td>
-      <td
-        className={
-          price_change ? (price_change > 0 ? styles.success : styles.error) : ""
-        }
-      >
-        %{price_change?.toFixed(2) ?? "N/A"}
-      </td>
-      <td>{total_volume?.toLocaleString() ?? "N/A"}</td>
-      <td>
-        <img
-          src={price_change > 0 ? ChartUp : ChartDown}
-          alt={name ?? "Unknown"}
-        />
-      </td>
+      <td className={styles.numeric}>{total_volume?.toLocaleString() ?? "N/A"}</td>
+      <td><span className={price_change > 0 ? styles.trendUp : styles.trendDown}>{price_change > 0 ? <ArrowUpRight size={17} /> : <ArrowDownRight size={17} />}</span></td>
     </tr>
   );
 };

@@ -1,56 +1,15 @@
-.container {
-  display: flex;
-  justify-content: center;
-  margin: 50px 0 100px;
-  min-height: 1000px;
-}
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.table thead {
-  border-bottom: 2px solid #fff;
-  margin-bottom: 20px;
-}
-.table th {
-  font-size: 1.2rem;
-  text-align: left;
-  padding: 10px 0;
-}
-.table tbody tr {
-  height: 80px;
-  border-bottom: 1px solid #22262e;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-.symbol {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.symbol img {
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-}
-.symbol span {
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #9fa6b7;
-}
-.success {
-  color: #57bc7c;
-}
-.error {
-  color: #d33636;
-}
-@media (max-width: 600px) {
-  .table {
-    display: block;
-    overflow-x: scroll;
-  }
-  .table td,
-  .table th {
-    padding: 0 10px;
-  }
-}
+.container { display:block; width:100%; margin:18px 0 26px; min-height:0; }
+.table { width:100%; border-collapse:separate; border-spacing:0; white-space:nowrap; background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.table thead { background:var(--surface-raised); }
+.table th { padding:17px 18px; border-bottom:1px solid var(--border); color:var(--muted); font-size:.7rem; text-align:left; font-weight:750; letter-spacing:.07em; text-transform:uppercase; }
+.table tbody tr { height:68px; font-weight:600; font-size:.9rem; transition:background 140ms ease; }
+.table tbody tr:hover { background:var(--surface-hover); }
+.table tbody tr:not(:last-child) { border-bottom:1px solid var(--border); }
+.table td { padding:14px 18px; border-bottom:1px solid var(--border); color:var(--text); }
+.table tbody tr:last-child td { border-bottom:0; }
+.symbol { display:flex; align-items:center; cursor:pointer; gap:10px; }
+.symbol img { width:30px; height:30px; border-radius:50%; object-fit:contain; }
+.symbol span { color:var(--muted); font-weight:750; font-size:.82rem; }
+.success { color:var(--positive); }
+.error { color:var(--negative); }
+@media(max-width:720px) { .container { overflow-x:auto; } .table { min-width:680px; } .table td,.table th { padding:13px 12px; } }

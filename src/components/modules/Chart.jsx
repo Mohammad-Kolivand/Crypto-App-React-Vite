@@ -6,21 +6,30 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 
 function Chart({ chart, setChart }) {
   const [type, setType] = useState("prices");
-  const typeHandler = (event) => {
-    if (event.target.tagName === "BUTTON") {
-      setType(event.target.innerText.toLowerCase().replace(" ", "_"));
-    }
-  };
+  const chartTypes = [
+    { value: "prices", label: "Prices" },
+    { value: "market_caps", label: "Market Caps" },
+    { value: "total_volumes", label: "Total Volumes" },
+  ];
+
   return (
     <div className={styles.container} role="dialog" aria-modal="true" aria-label={`${chart.coin.name} price chart`}>
       <button type="button" className={styles.cross} onClick={() => setChart(null)} aria-label="Close chart"><X size={19} /></button>
       <div className={styles.chart}>
         <div className={styles.name}><img src={chart.coin.image} alt="" /><div><p>{chart.coin.name}</p><span>MARKET HISTORY</span></div></div>
         <div className={styles.graph}><ChartComponent data={convertData(chart, type)} type={type} /></div>
-        <div className={styles.types} onClick={typeHandler}>
-          <button type="button" className={type === "prices" ? styles.selected : ""}>Prices</button>
-          <button type="button" className={type === "market_caps" ? styles.selected : ""}>Market Caps</button>
-          <button type="button" className={type === "total_volumes" ? styles.selected : ""}>Total Volumes</button>
+        <div className={styles.types} aria-label="Chart data type">
+          {chartTypes.map((item) => (
+            <button
+              key={item.value}
+              type="button"
+              className={type === item.value ? styles.selected : ""}
+              aria-pressed={type === item.value}
+              onClick={() => setType(item.value)}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
         <div className={styles.detailes}>
           <div><p>Price</p><span>${chart.coin.current_price?.toLocaleString() ?? "N/A"}</span></div>

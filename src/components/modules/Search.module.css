@@ -1,57 +1,12 @@
-.searchBox {
-  margin-top: 50px;
-  position: relative;
-}
-.searchBox input {
-  width: 300px;
-  height: 50px;
-  padding: 10px;
-  font-size: 1.1rem;
-  color: #fff;
-  background-color: #23242e;
-  border: none;
-  border-radius: 5px;
-}
-.searchBox input:focus {
-  outline: none;
-}
-.searchBox select {
-  background-color: #23242e;
-  height: 50px;
-  border: none;
-  border-radius: 5px;
-  margin-left: 20px;
-  color: #fff;
-  padding: 0 10px;
-}
-.searchBox select:focus {
-  outline: none;
-}
-.searchResult {
-  position: absolute;
-  text-align: center;
-  top: 60px;
-  width: 300px;
-  height: 400px;
-  border-radius: 5px;
-  overflow-y: scroll;
-  background-color: #18181c;
-  border: solid 2px #22262e;
-  padding: 20px;
-}
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-.searchResult li {
-  list-style: none;
-  display: flex;
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #22262e;
-}
-.searchResult li img {
-  margin-right: 10px;
-  width: 25px;
-  height: 25px;
-}
+.searchBox { margin-top:22px; position:relative; display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
+.searchBox input { width:min(100%,430px); height:48px; padding:0 15px; font-size:.9rem; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:12px; }
+.searchBox input::placeholder { color:var(--muted); }
+.searchBox input:focus,.searchBox select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }
+.searchBox select { background:var(--surface); height:48px; border:1px solid var(--border); border-radius:12px; color:var(--text); padding:0 14px; }
+.searchResult { position:absolute; z-index:5; text-align:left; top:56px; left:0; width:min(100%,430px); max-height:340px; border-radius:12px; overflow-y:auto; background:var(--surface); border:1px solid var(--border); padding:14px; box-shadow:var(--shadow); }
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+.searchResult li { list-style:none; display:flex; align-items:center; gap:10px; margin-bottom:10px; padding:8px 5px; border-bottom:1px solid var(--border); }
+.searchResult li img { width:26px; height:26px; border-radius:50%; }
+.searchResult li p { color:var(--text); }
+@media(max-width:540px) { .searchBox input { width:100%; } .searchBox select { max-width:100%; } }

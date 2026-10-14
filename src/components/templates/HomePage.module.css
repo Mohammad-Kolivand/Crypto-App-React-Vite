@@ -1,0 +1,30 @@
+.dashboard { display:flex; flex-direction:column; gap:30px; }
+.intro { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding:12px 0 4px; }
+.eyebrow { margin-bottom:9px; color:var(--accent); font-size:.7rem; font-weight:800; letter-spacing:.13em; }
+.intro h1 { max-width:760px; color:var(--text); font-size:clamp(2rem,4vw,3.2rem); line-height:1.12; letter-spacing:-.055em; }
+.introText { max-width:610px; margin-top:14px; color:var(--muted); font-size:1rem; line-height:1.75; }
+.liveBadge { display:inline-flex; align-items:center; gap:9px; flex-shrink:0; padding:10px 13px; border:1px solid var(--border); border-radius:999px; background:var(--surface); color:var(--muted); font-size:.78rem; font-weight:650; }
+.liveBadge span { width:7px; height:7px; border-radius:50%; background:var(--positive); box-shadow:0 0 0 4px color-mix(in srgb,var(--positive) 12%,transparent); }
+.statsGrid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+.statCard { min-width:0; padding:20px; border:1px solid var(--border); border-radius:17px; background:var(--surface); box-shadow:var(--shadow); }
+.statTop { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.statIcon { display:grid; width:34px; height:34px; place-items:center; border-radius:11px; background:var(--accent-soft); color:var(--accent); font-size:1.15rem; }
+.positiveIcon { background:color-mix(in srgb,var(--positive) 12%,transparent); color:var(--positive); }
+.negativeIcon { background:color-mix(in srgb,var(--negative) 12%,transparent); color:var(--negative); }
+.statLabel { color:var(--muted); font-size:.78rem; font-weight:650; }
+.statCard strong { display:block; color:var(--text); font-size:2rem; line-height:1.2; letter-spacing:-.045em; font-variant-numeric:tabular-nums; }
+.statCard .currencyValue { font-size:1.7rem; }
+.statHint { display:block; margin-top:8px; color:var(--muted); font-size:.75rem; }
+.marketSection { padding:clamp(18px,3vw,30px); border:1px solid var(--border); border-radius:22px; background:color-mix(in srgb,var(--surface) 88%,transparent); }
+.sectionHeading { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; }
+.sectionHeading .eyebrow { margin-bottom:6px; }
+.sectionHeading h2 { color:var(--text); font-size:clamp(1.25rem,2.5vw,1.7rem); letter-spacing:-.04em; }
+.pageIndicator { padding:7px 10px; border:1px solid var(--border); border-radius:9px; color:var(--muted); font-size:.75rem; white-space:nowrap; }
+@media(max-width:920px) { .statsGrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) {
+  .dashboard { gap:23px; } .intro { align-items:flex-start; flex-direction:column; gap:16px; }
+  .intro h1 { font-size:2.1rem; } .introText { font-size:.9rem; } .statsGrid { gap:10px; }
+  .statCard { padding:14px; } .statTop { align-items:flex-start; flex-direction:column; gap:8px; margin-bottom:13px; }
+  .statCard strong { font-size:1.7rem; } .statLabel { font-size:.72rem; }
+  .marketSection { padding:14px; border-radius:17px; } .sectionHeading { align-items:flex-start; flex-direction:column; }
+}

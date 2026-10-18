@@ -1,21 +1,121 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: Inter, "Segoe UI", sans-serif;
+  color-scheme: dark;
+
+  --page: #080d11;
+  --surface: #0e151b;
+  --surface-raised: #131d24;
+  --surface-hover: #17252b;
+
+  --text: #e7f1f1;
+  --muted: #82969e;
+  --border: #23343b;
+
+  --accent: #c7ff3d;
+  --accent-contrast: #101609;
+  --cyan: #35e6d0;
+  --positive: #c7ff3d;
+  --negative: #ff647c;
+
+  --shadow: 0 14px 38px rgb(0 0 0 / 30%);
 }
-body {
-  margin: auto;
-  max-width: 1200px;
-  min-height: 100vh;
-  padding: 10px;
-  background-color: #131315;
-  color: #fff;
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --page: #f0f5f2;
+  --surface: #fbfefc;
+  --surface-raised: #e7f0eb;
+  --surface-hover: #e5eee9;
+
+  --text: #172720;
+  --muted: #64786e;
+  --border: #d3e0d8;
+
+  --accent: #4b8100;
+  --accent-contrast: #ffffff;
+  --cyan: #087f83;
+  --positive: #4b8100;
+  --negative: #d93e59;
+
+  --shadow: 0 12px 32px rgb(21 47 33 / 9%);
 }
+
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
 }
-a {
-  text-decoration: inherit;
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: var(--page);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 85% 0%, rgb(53 230 208 / 4%), transparent 36%),
+    var(--page);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
   color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  color: var(--accent-contrast);
+  background: var(--accent);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--page);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--page);
+  border-radius: 8px;
+  background: var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

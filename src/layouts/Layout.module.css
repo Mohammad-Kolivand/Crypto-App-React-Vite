@@ -1,26 +1,193 @@
+.shell {
+  width: min(100% - 48px, 1560px);
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
 .header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #3874ff;
-  padding: 10px 20px;
-  margin-bottom: 150px;
-  border-radius: 10px;
+  gap: 20px;
+  min-height: 76px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--page) 92%, transparent);
+  backdrop-filter: blur(16px);
 }
-.header a {
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.055em;
   text-decoration: none;
-  color: #000000;
+  white-space: nowrap;
+}
+
+.brandMark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--accent);
+}
+
+.brandAccent {
+  color: var(--cyan);
+}
+
+.terminalBadge {
+  margin-left: 3px;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.58rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  letter-spacing: 0.12em;
 }
-.header a:hover{
-    color: #fff;
-    transition: all 0.2s ease-in-out;
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
+
+.marketStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+}
+
+.statusDot,
+.footerDot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--positive);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--positive) 45%, transparent);
+}
+
+.themeToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 11px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.themeToggle:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.themeToggle svg {
+  color: var(--accent);
+}
+
+.main {
+  min-height: calc(100vh - 140px);
+  padding: 30px 0 44px;
+}
+
 .footer {
-  text-align: center;
-  background-color: #3874ff;
-  padding: 20px;
-  margin-top: 80px;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  min-height: 55px;
+  padding: 15px 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.65rem;
+}
+
+.footer > span:nth-child(2) {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.footerDivider {
+  color: var(--accent);
+}
+
+.footerAuthor {
+  margin-left: auto;
+}
+
+@media (max-width: 680px) {
+  .shell {
+    width: calc(100% - 28px);
+  }
+
+  .header {
+    min-height: 65px;
+    gap: 10px;
+  }
+
+  .brand {
+    gap: 7px;
+    font-size: 1.05rem;
+  }
+
+  .brandMark {
+    width: 31px;
+    height: 31px;
+  }
+
+  .terminalBadge,
+  .marketStatus {
+    display: none;
+  }
+
+  .themeToggle {
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 0.68rem;
+  }
+
+  .headerRight {
+    gap: 8px;
+  }
+
+  .main {
+    padding-top: 23px;
+  }
+
+  .footerAuthor {
+    width: 100%;
+    margin-left: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .themeToggle {
+    transition: none;
+  }
 }

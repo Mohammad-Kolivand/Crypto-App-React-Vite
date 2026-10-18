@@ -1,0 +1,647 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 8px 0 2px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.eyebrow span {
+  color: var(--border);
+}
+
+.intro h1 {
+  color: var(--text);
+  font-size: clamp(1.8rem, 3.5vw, 2.55rem);
+  font-weight: 720;
+  line-height: 1.12;
+  letter-spacing: -0.055em;
+}
+
+.marketMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  background: var(--surface);
+  font-size: 0.76rem;
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--positive);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.statCard {
+  min-width: 0;
+  padding: 17px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: border-color 160ms ease;
+}
+
+.statCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
+}
+
+.statTop {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.statIcon {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.positiveIcon {
+  color: var(--positive);
+  background: color-mix(in srgb, var(--positive) 10%, transparent);
+}
+
+.negativeIcon {
+  color: var(--negative);
+  background: color-mix(in srgb, var(--negative) 10%, transparent);
+}
+
+.statLabel {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.statCard strong {
+  display: block;
+  color: var(--text);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.marketSection {
+  min-width: 0;
+  padding: clamp(16px, 2.4vw, 25px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.sectionHeading h2 {
+  color: var(--text);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.sectionSubheading {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.pageIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pageIndicator span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.errorNotice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--negative) 35%, transparent);
+  border-radius: 8px;
+  color: var(--negative);
+  font-size: 0.84rem;
+}
+
+.chartLoading {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(4, 8, 20, 0.76);
+  color: #e8eef8;
+  font-size: 0.95rem;
+  font-weight: 650;
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    gap: 17px;
+  }
+
+  .intro {
+    align-items: flex-start;
+  }
+
+  .marketMeta {
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+
+  .statsGrid {
+    gap: 9px;
+  }
+
+  .statCard {
+    padding: 13px;
+  }
+
+  .statTop {
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+
+  .statCard strong {
+    font-size: 1.55rem;
+  }
+
+  .marketSection {
+    padding: 15px 11px;
+  }
+}
+
+@media (max-width: 420px) {
+  .intro {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .statCard {
+    padding: 11px 9px;
+  }
+
+  .statIcon {
+    width: 27px;
+    height: 27px;
+  }
+
+  .statLabel {
+    font-size: 0.7rem;
+  }
+
+  .statCard strong {
+    font-size: 1.35rem;
+  }
+
+  .sectionHeading h2 {
+    font-size: 1.05rem;
+  }
+}
+
+
+/* ===== CryptoPulse UI refinements ===== */
+
+
+/* =========================================
+   CryptoPulse — Trading Terminal UI
+   Home page layout refinement
+========================================= */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-width: 0;
+}
+
+/* Keep intentionally emptied sections from
+   reserving unnecessary vertical space. */
+.intro:has(.introCopy:empty):has(.snapshot:empty) {
+  display: none;
+}
+
+.marketHeading:empty {
+  display: none;
+}
+
+/* Market summary terminal strip */
+.marketSummary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.summaryMetric {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  min-width: 0;
+  min-height: 112px;
+  padding: 19px 23px;
+  border-right: 1px solid var(--border);
+  transition: background 160ms ease;
+}
+
+.summaryMetric:last-child {
+  border-right: 0;
+}
+
+.summaryMetric:hover {
+  background: var(--surface-hover);
+}
+
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.metricLabel svg {
+  flex-shrink: 0;
+  color: var(--cyan);
+}
+
+.summaryMetric strong {
+  color: var(--text);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.summaryMetric .positiveValue {
+  color: var(--positive);
+}
+
+.summaryMetric .negativeValue {
+  color: var(--negative);
+}
+
+/* Search and currency toolbar */
+.marketToolbar {
+  min-width: 0;
+  margin-bottom: 14px;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+}
+
+/* API error state */
+.errorNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 13px 15px;
+  border: 1px solid color-mix(in srgb, var(--negative) 35%, var(--border));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--negative) 7%, var(--surface));
+  color: var(--text);
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+
+.errorNotice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--negative);
+}
+
+/* Table region */
+.tableArea {
+  min-width: 0;
+  overflow-x: auto;
+  border-radius: 7px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.paginationArea {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.marketFootnote {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 13px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.65rem;
+  line-height: 1.7;
+}
+
+.marketFootnote > span:first-child {
+  color: var(--cyan);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footnoteDot {
+  color: var(--accent);
+}
+
+/* Responsive layout */
+@media (min-width: 1200px) {
+  .dashboard {
+    gap: 30px;
+  }
+
+  .summaryMetric {
+    min-height: 124px;
+    padding: 22px 26px;
+  }
+
+  .marketToolbar {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    gap: 20px;
+  }
+
+  .summaryMetric {
+    min-height: 96px;
+    gap: 12px;
+    padding: 15px 13px;
+  }
+
+  .metricLabel {
+    gap: 6px;
+    font-size: 0.61rem;
+    letter-spacing: 0;
+  }
+
+  .summaryMetric strong {
+    font-size: 1.4rem;
+  }
+
+  .marketToolbar {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .paginationArea {
+    padding: 13px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard {
+    gap: 16px;
+  }
+
+  .marketSummary {
+    border-radius: 6px;
+  }
+
+  .summaryMetric {
+    min-height: 88px;
+    padding: 13px 9px;
+  }
+
+  .metricLabel {
+    font-size: 0.56rem;
+  }
+
+  .metricLabel svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .summaryMetric strong {
+    font-size: 1.2rem;
+  }
+
+  .marketFootnote {
+    font-size: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summaryMetric {
+    transition: none;
+  }
+}
+
+
+/* Interactive market tools */
+.marketFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.marketFilters button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.marketFilters button:hover,
+.marketFilters .activeFilter {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+.marketFilters button:focus-visible,
+.calculator input:focus-visible,
+.calculator select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calculator {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.calculatorTitle {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--accent);
+}
+
+.calculatorTitle h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.calculatorTitle p,
+.calculatorHint {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.calculatorFields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.calculatorFields label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.calculator input,
+.calculator select {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  background: var(--surface-raised, var(--surface));
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.calculatorResult {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calculatorResult > div {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.calculatorResult span {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.calculatorResult strong {
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 700px) {
+  .calculator { padding: 15px; }
+  .calculatorFields,
+  .calculatorResult { grid-template-columns: 1fr; }
+  .marketFilters { gap: 6px; }
+  .marketFilters button { padding-inline: 9px; font-size: 0.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketFilters button { transition: none; }
+}

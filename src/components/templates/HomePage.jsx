@@ -1,5 +1,19 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { ArrowDownRight, ArrowUpRight, Coins, RefreshCw } from "lucide-react";
+
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Coins,
+  RefreshCw,
+} from "lucide-react";
+
 import { getCoinList } from "../../services/cryptoApi";
 import TableCoin from "../modules/TableCoin";
 import Pagination from "../modules/Pagination";
@@ -18,83 +32,166 @@ function HomePage() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const getData = async () => {
+
+    async function getData() {
       setIsLoading(true);
       setLoadError("");
+
       try {
-        const res = await fetch(getCoinList(page, currency), { signal: controller.signal });
-        if (!res.ok) throw new Error(`Market data request failed (${res.status})`);
-        const json = await res.json();
-        if (!Array.isArray(json)) throw new Error("Unexpected market data response.");
-        setCoins(json);
+        const response = await fetch(getCoinList(page, currency), {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Market data request failed (${response.status})`
+          );
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error("Unexpected market data response.");
+        }
+
+        if (!controller.signal.aborted) {
+          setCoins(data);
+        }
       } catch (error) {
-        if (error.name !== "AbortError") setLoadError(error.message || "Unable to load market data.");
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        setLoadError(
+          error instanceof Error
+            ? error.message
+            : "Unable to load market data."
+        );
       } finally {
-        if (!controller.signal.aborted) setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
-    };
+    }
+
     getData();
-    return () => controller.abort();
+
+    return () => {
+      controller.abort();
+    };
   }, [page, currency]);
 
-  const gainers = coins.filter((coin) => (coin.price_change_percentage_24h ?? 0) > 0).length;
-  const losers = coins.filter((coin) => (coin.price_change_percentage_24h ?? 0) < 0).length;
+  const { gainers, losers } = useMemo(() => {
+    return coins.reduce(
+      (summary, coin) => {
+        const change = Number(coin.price_change_percentage_24h);
+
+        if (Number.isFinite(change)) {
+          if (change > 0) {
+            summary.gainers += 1;
+          } else if (change < 0) {
+            summary.losers += 1;
+          }
+        }
+
+        return summary;
+      },
+      { gainers: 0, losers: 0 }
+    );
+  }, [coins]);
 
   return (
     <div className={styles.dashboard}>
-      {!!chart && (
-        <Suspense fallback={<div className={styles.chartLoading} role="status">Loading chart…</div>}>
-          <Chart setChart={setChart} chart={chart} />
+      {chart && (
+        <Suspense
+          fallback={
+            <div className={styles.chartLoading} role="status">
+              Loading chart…
+            </div>
+          }
+        >
+          <Chart chart={chart} setChart={setChart} />
         </Suspense>
       )}
 
-      <section className={styles.intro}>
-        <div>
-          <p className={styles.eyebrow}>MARKET OVERVIEW <span>/</span> {currency.toUpperCase()}</p>
-          <h1>Crypto market</h1>
-        </div>
-        <div className={styles.marketMeta}>
-          <span className={styles.statusDot} />
-          <span>{isLoading ? "Updating" : "Market snapshot"}</span>
-        </div>
+      <section id="overview" className={styles.intro}>
+        <div className={styles.introCopy}></div>
+        <div className={styles.snapshot}></div>
       </section>
 
-      <section className={styles.statsGrid} aria-label="Current market summary">
-        <article className={styles.statCard}>
-          <div className={styles.statTop}>
-            <span className={styles.statIcon}><Coins size={17} /></span>
-            <span className={styles.statLabel}>Assets</span>
-          </div>
+      <section
+        className={styles.marketSummary}
+        aria-label="Summary of assets on this page"
+      >
+        <div className={styles.summaryMetric}>
+          <span className={styles.metricLabel}>
+            <Coins size={15} />
+            Assets
+          </span>
+
           <strong>{isLoading ? "—" : coins.length}</strong>
-        </article>
-        <article className={styles.statCard}>
-          <div className={styles.statTop}>
-            <span className={styles.statIcon + " " + styles.positiveIcon}><ArrowUpRight size={18} /></span>
-            <span className={styles.statLabel}>Up 24h</span>
-          </div>
-          <strong>{isLoading ? "—" : gainers}</strong>
-        </article>
-        <article className={styles.statCard}>
-          <div className={styles.statTop}>
-            <span className={styles.statIcon + " " + styles.negativeIcon}><ArrowDownRight size={18} /></span>
-            <span className={styles.statLabel}>Down 24h</span>
-          </div>
-          <strong>{isLoading ? "—" : losers}</strong>
-        </article>
+        </div>
+
+        <div className={styles.summaryMetric}>
+          <span className={styles.metricLabel}>
+            <ArrowUpRight size={15} />
+            Rising
+          </span>
+
+          <strong className={styles.positiveValue}>
+            {isLoading ? "—" : gainers}
+          </strong>
+        </div>
+
+        <div className={styles.summaryMetric}>
+          <span className={styles.metricLabel}>
+            <ArrowDownRight size={15} />
+            Falling
+          </span>
+
+          <strong className={styles.negativeValue}>
+            {isLoading ? "—" : losers}
+          </strong>
+        </div>
       </section>
 
-      <section className={styles.marketSection}>
-        <div className={styles.sectionHeading}>
-          <div>
-            <h2>Market</h2>
-            <span className={styles.sectionSubheading}>Price and 24h change</span>
-          </div>
-          <span className={styles.pageIndicator}>{page}<span>/ 10</span></span>
+      <section id="market" className={styles.marketSection}>
+        <div className={styles.marketHeading}></div>
+
+        <div className={styles.marketToolbar}>
+          <Search
+            currency={currency}
+            setCurrency={setCurrency}
+          />
         </div>
-        <Search currency={currency} setCurrency={setCurrency} />
-        {loadError && <div className={styles.errorNotice} role="alert"><RefreshCw size={16} /> {loadError}</div>}
-        <TableCoin coins={coins} isLoading={isLoading} setChart={setChart} />
-        <Pagination page={page} setPage={setPage} />
+
+        {loadError && (
+          <div className={styles.errorNotice} role="alert">
+            <RefreshCw size={16} />
+            <span>{loadError}</span>
+          </div>
+        )}
+
+        <div className={styles.tableArea}>
+          <TableCoin
+            coins={coins}
+            isLoading={isLoading}
+            setChart={setChart}
+            currency={currency}
+          />
+        </div>
+
+        <div className={styles.paginationArea}>
+          <Pagination page={page} setPage={setPage} />
+        </div>
+
+        <div className={styles.marketFootnote}>
+          <span>Market data</span>
+          <span className={styles.footnoteDot}>·</span>
+          <span>
+            Values reflect the assets currently displayed.
+          </span>
+        </div>
       </section>
     </div>
   );

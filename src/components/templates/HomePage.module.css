@@ -261,3 +261,253 @@
     font-size: 1.05rem;
   }
 }
+
+
+/* ===== CryptoPulse UI refinements ===== */
+
+
+/* =========================================
+   CryptoPulse — Trading Terminal UI
+   Home page layout refinement
+========================================= */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  min-width: 0;
+}
+
+/* Keep intentionally emptied sections from
+   reserving unnecessary vertical space. */
+.intro:has(.introCopy:empty):has(.snapshot:empty) {
+  display: none;
+}
+
+.marketHeading:empty {
+  display: none;
+}
+
+/* Market summary terminal strip */
+.marketSummary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.summaryMetric {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  min-width: 0;
+  min-height: 112px;
+  padding: 19px 23px;
+  border-right: 1px solid var(--border);
+  transition: background 160ms ease;
+}
+
+.summaryMetric:last-child {
+  border-right: 0;
+}
+
+.summaryMetric:hover {
+  background: var(--surface-hover);
+}
+
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.metricLabel svg {
+  flex-shrink: 0;
+  color: var(--cyan);
+}
+
+.summaryMetric strong {
+  color: var(--text);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.summaryMetric .positiveValue {
+  color: var(--positive);
+}
+
+.summaryMetric .negativeValue {
+  color: var(--negative);
+}
+
+/* Search and currency toolbar */
+.marketToolbar {
+  min-width: 0;
+  margin-bottom: 14px;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+}
+
+/* API error state */
+.errorNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 13px 15px;
+  border: 1px solid color-mix(in srgb, var(--negative) 35%, var(--border));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--negative) 7%, var(--surface));
+  color: var(--text);
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+
+.errorNotice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--negative);
+}
+
+/* Table region */
+.tableArea {
+  min-width: 0;
+  overflow-x: auto;
+  border-radius: 7px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.paginationArea {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.marketFootnote {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 13px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.65rem;
+  line-height: 1.7;
+}
+
+.marketFootnote > span:first-child {
+  color: var(--cyan);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footnoteDot {
+  color: var(--accent);
+}
+
+/* Responsive layout */
+@media (min-width: 1200px) {
+  .dashboard {
+    gap: 30px;
+  }
+
+  .summaryMetric {
+    min-height: 124px;
+    padding: 22px 26px;
+  }
+
+  .marketToolbar {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard {
+    gap: 20px;
+  }
+
+  .summaryMetric {
+    min-height: 96px;
+    gap: 12px;
+    padding: 15px 13px;
+  }
+
+  .metricLabel {
+    gap: 6px;
+    font-size: 0.61rem;
+    letter-spacing: 0;
+  }
+
+  .summaryMetric strong {
+    font-size: 1.4rem;
+  }
+
+  .marketToolbar {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .paginationArea {
+    padding: 13px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard {
+    gap: 16px;
+  }
+
+  .marketSummary {
+    border-radius: 6px;
+  }
+
+  .summaryMetric {
+    min-height: 88px;
+    padding: 13px 9px;
+  }
+
+  .metricLabel {
+    font-size: 0.56rem;
+  }
+
+  .metricLabel svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .summaryMetric strong {
+    font-size: 1.2rem;
+  }
+
+  .marketFootnote {
+    font-size: 0.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summaryMetric {
+    transition: none;
+  }
+}

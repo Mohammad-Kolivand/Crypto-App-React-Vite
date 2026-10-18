@@ -511,3 +511,137 @@
     transition: none;
   }
 }
+
+
+/* Interactive market tools */
+.marketFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.marketFilters button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.marketFilters button:hover,
+.marketFilters .activeFilter {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+.marketFilters button:focus-visible,
+.calculator input:focus-visible,
+.calculator select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.calculator {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.calculatorTitle {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--accent);
+}
+
+.calculatorTitle h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.calculatorTitle p,
+.calculatorHint {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.calculatorFields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.calculatorFields label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.calculator input,
+.calculator select {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  background: var(--surface-raised, var(--surface));
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.calculatorResult {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calculatorResult > div {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.calculatorResult span {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.calculatorResult strong {
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 700px) {
+  .calculator { padding: 15px; }
+  .calculatorFields,
+  .calculatorResult { grid-template-columns: 1fr; }
+  .marketFilters { gap: 6px; }
+  .marketFilters button { padding-inline: 9px; font-size: 0.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketFilters button { transition: none; }
+}

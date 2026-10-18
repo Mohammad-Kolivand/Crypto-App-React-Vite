@@ -1,23 +1,32 @@
-
 # Crypto App 💰
 
-A real-time cryptocurrency tracker built with React and Vite. It fetches data from crypto APIs and visualizes price trends.
+A real-time cryptocurrency dashboard built with React and Vite.
+
+## 🚀 Live Demo
+
+**[Open Crypto App](https://crypto-app-react-vite.vercel.app/)**
 
 ## Features
 
-- View top cryptocurrencies and their stats
-- Real-time price updates
-- Interactive charts (e.g. price history)
+- Browse cryptocurrency market data and price trends
+- Interactive price charts with 24H, 7D, and 30D ranges
+- Watchlist for tracking selected assets
+- Market filters for all assets, gainers, losers, and watchlist
+- Profit/loss estimator
+- Responsive dashboard and theme switching
 
 ## Tech Stack
 
 - React
 - Vite
+- JavaScript
+- Recharts
 - Axios
-- Chart.js or Recharts
+- Lucide React
 
 ## Getting Started
 
 ```bash
 npm install
 npm run dev
+```

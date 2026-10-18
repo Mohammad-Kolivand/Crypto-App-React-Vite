@@ -272,3 +272,49 @@
 .trendDown {
   background: color-mix(in srgb, var(--negative) 10%, transparent);
 }
+
+
+.assetActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.watchlistButton {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.watchlistButton:hover,
+.watchlisted {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.watchlistButton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.trendNeutral {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--muted);
+  background: var(--surface-raised);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .watchlistButton { transition: none; }
+}
